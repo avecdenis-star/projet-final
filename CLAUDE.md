@@ -12,9 +12,11 @@ Gestionnaire de tâches local : Vite + JavaScript natif (pas de framework), inte
 npm run dev       # serveur de dev Vite (port 5173 par défaut)
 npm run build     # build de production dans dist/
 npm run preview   # sert le build de production localement
+npm test          # tests unitaires (node:test, aucune dépendance)
+node --test --test-name-pattern="basculerTache" "tests/**/*.test.js"   # un seul groupe de tests
 ```
 
-No test suite and no lint script are configured in `package.json`.
+Tests live in `tests/*.test.js` and run on Node's built-in `node:test` runner (no browser, no extra dependency). They cover `taskStore.js` only: `localStorage` is replaced by an in-memory fake, and since the store initializes its state at module load, each test re-imports it with a unique query string (`?instance=N`) to get a fresh instance. No lint script is configured.
 
 **WSL gotcha**: in this environment, `npm`/`node` resolved from `PATH` may point to the Windows binaries under `/mnt/c/...`, which fail (`CMD.EXE` can't handle the WSL UNC path). Use a Linux-native Node instead (e.g. the one under `~/.nvm/versions/node/<version>/bin`), prepended to `PATH`, before running any `npm` command.
 
