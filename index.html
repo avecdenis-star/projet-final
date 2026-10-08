@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mes tâches</title>
+  </head>
+  <body>
+    <main class="app">
+      <h1>Mes tâches</h1>
+
+      <form id="formulaire-ajout" autocomplete="off">
+        <label for="champ-nouvelle-tache" class="visually-hidden">Nouvelle tâche</label>
+        <input
+          type="text"
+          id="champ-nouvelle-tache"
+          name="nouvelle-tache"
+          placeholder="Ajouter une tâche..."
+          required
+        />
+        <button type="submit">Ajouter</button>
+      </form>
+
+      <p id="message-erreur" class="message-erreur" role="alert"></p>
+
+      <h2 id="titre-liste" hidden>Liste des tâches</h2>
+      <ul id="liste-taches"></ul>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
