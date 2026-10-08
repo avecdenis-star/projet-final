@@ -43,3 +43,11 @@ export function basculerTache(id) {
     sauvegarderTaches();
   }
 }
+
+export function supprimerTache(id) {
+  const index = taches.findIndex((t) => t.id === id);
+  if (index !== -1) {
+    taches.splice(index, 1);
+    sauvegarderTaches();
+  }
+}

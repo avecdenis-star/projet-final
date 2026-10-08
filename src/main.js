@@ -1,5 +1,10 @@
 import "./style.css";
-import { obtenirTaches, ajouterTache, basculerTache } from "./taskStore.js";
+import {
+  obtenirTaches,
+  ajouterTache,
+  basculerTache,
+  supprimerTache,
+} from "./taskStore.js";
 import { afficherTaches } from "./render.js";
 
 const formulaire = document.querySelector("#formulaire-ajout");
@@ -32,6 +37,15 @@ conteneurListe.addEventListener("change", (evenement) => {
   if (evenement.target.matches('input[type="checkbox"]')) {
     const id = evenement.target.closest("li").dataset.id;
     basculerTache(id);
+    rafraichirAffichage();
+  }
+});
+
+conteneurListe.addEventListener("click", (evenement) => {
+  const bouton = evenement.target.closest(".bouton-supprimer");
+  if (bouton) {
+    const id = bouton.closest("li").dataset.id;
+    supprimerTache(id);
     rafraichirAffichage();
   }
 });
