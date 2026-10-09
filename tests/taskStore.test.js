@@ -152,6 +152,43 @@ describe("taskStore - basculerTache", () => {
   });
 });
 
+describe("taskStore - supprimerTache", () => {
+  test("retire la tâche correspondant à l'id", async () => {
+    const { ajouterTache, obtenirTaches, supprimerTache } =
+      await importerTaskStoreFrais();
+    ajouterTache("Tache A");
+    ajouterTache("Tache B");
+    const { id } = obtenirTaches()[0];
+
+    supprimerTache(id);
+
+    assert.equal(obtenirTaches().length, 1);
+    assert.equal(obtenirTaches()[0].texte, "Tache B");
+  });
+
+  test("ne modifie rien si l'id n'existe pas", async () => {
+    const { ajouterTache, obtenirTaches, supprimerTache } =
+      await importerTaskStoreFrais();
+    ajouterTache("Tache test");
+
+    supprimerTache("id-inexistant");
+
+    assert.equal(obtenirTaches().length, 1);
+  });
+
+  test("persiste la suppression dans localStorage", async () => {
+    const { ajouterTache, obtenirTaches, supprimerTache } =
+      await importerTaskStoreFrais();
+    ajouterTache("Tache test");
+    const { id } = obtenirTaches()[0];
+
+    supprimerTache(id);
+
+    const sauvegarde = JSON.parse(globalThis.localStorage.getItem("taches"));
+    assert.deepEqual(sauvegarde, []);
+  });
+});
+
 describe("taskStore - persistance (localStorage)", () => {
   test("ajouterTache écrit la liste complète des taches dans localStorage", async () => {
     const { ajouterTache } = await importerTaskStoreFrais();

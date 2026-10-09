@@ -25,7 +25,14 @@ export function afficherTaches(taches, conteneur, titre) {
     span.textContent = tache.texte;
 
     label.append(checkbox, span);
-    li.append(label);
+
+    const boutonSupprimer = document.createElement("button");
+    boutonSupprimer.type = "button";
+    boutonSupprimer.className = "bouton-supprimer";
+    boutonSupprimer.textContent = "Supprimer";
+    boutonSupprimer.setAttribute("aria-label", `Supprimer la tâche « ${tache.texte} »`);
+
+    li.append(label, boutonSupprimer);
     conteneur.append(li);
   }
 }
